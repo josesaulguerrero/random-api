@@ -1,6 +1,5 @@
 package co.com.randomapi.domain.dto;
 
-import co.com.randomapi.persistence.entity.Subject;
 import lombok.*;
 
 import java.util.List;
@@ -14,9 +13,9 @@ public class ProfessorDTO {
     private int age;
     private String dni;
     private double salary;
-    private List<Subject> subjectsInCharge;
+    private List<SubjectDTO> subjectsInCharge;
 
-    public ProfessorDTO(String name, int age, String dni, double salary, List<Subject> subjectsInCharge) {
+    public ProfessorDTO(String name, int age, String dni, double salary, List<SubjectDTO> subjectsInCharge) {
         this.name = name;
         this.age = age;
         this.dni = dni;
