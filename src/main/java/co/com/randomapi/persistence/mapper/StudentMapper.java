@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = { SubjectMapper.class })
 public abstract class StudentMapper implements BasicMapper<Student, StudentDTO> {
     @Override
@@ -19,4 +21,7 @@ public abstract class StudentMapper implements BasicMapper<Student, StudentDTO> 
     @Override
     @InheritInverseConfiguration
     public abstract StudentDTO entityToDTO(Student entity);
+
+    @Override
+    public abstract List<StudentDTO> entitiesToDTOs(List<Student> entities);
 }
