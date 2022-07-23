@@ -2,12 +2,22 @@ package co.com.randomapi.persistence.entity;
 
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
+
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter(value = AccessLevel.PROTECTED)
+@Setter(value = AccessLevel.PROTECTED)
 @ToString
-public abstract class Person<T> {
+@MappedSuperclass
+public abstract class Person<T extends Serializable> {
+    @Id
+    @Column(name = "id", unique = true)
+    @GeneratedValue(generator = "id_generator")
     protected T id;
     protected String DNI;
     protected String name;
