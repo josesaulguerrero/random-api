@@ -8,7 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfessorDTO {
-    private long id;
+    private Long id;
     private String name;
     private int age;
     private String dni;
