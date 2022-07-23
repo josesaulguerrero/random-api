@@ -2,6 +2,7 @@ package co.com.randomapi.persistence.entity;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
@@ -11,7 +12,10 @@ import javax.persistence.MappedSuperclass;
 @ToString
 @MappedSuperclass
 public abstract class Person {
+    @Column(unique = true, name = "dni")
     protected String DNI;
+
     protected String name;
+
     protected Integer age;
 }
