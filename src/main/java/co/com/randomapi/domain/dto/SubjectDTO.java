@@ -3,7 +3,7 @@ package co.com.randomapi.domain.dto;
 import co.com.randomapi.persistence.entity.SubjectDifficulty;
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -13,5 +13,12 @@ public class SubjectDTO {
     private String name;
     private SubjectDifficulty difficulty;
     private ProfessorDTO professorInCharge;
-    private List<StudentDTO> subscribedStudents;
+    private Set<StudentDTO> subscribedStudents;
+
+    public SubjectDTO(String name, SubjectDifficulty difficulty, ProfessorDTO professorInCharge, Set<StudentDTO> subscribedStudents) {
+        this.name = name;
+        this.difficulty = difficulty;
+        this.professorInCharge = professorInCharge;
+        this.subscribedStudents = subscribedStudents;
+    }
 }
