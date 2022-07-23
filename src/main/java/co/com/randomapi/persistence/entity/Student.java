@@ -22,8 +22,6 @@ public class Student extends Person {
     @GeneratedValue(generator = "student_id_generator")
     protected Long Id;
 
-    private Double salary;
-
     @ManyToMany(mappedBy = "subscribedStudents", fetch = FetchType.EAGER)
     private List<Subject> subscribedTo;
 }
