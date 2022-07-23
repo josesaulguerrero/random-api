@@ -15,7 +15,7 @@ import java.util.List;
 public class Professor extends Person {
     @Id
     @Column(name = "id", unique = true)
-    @GenericGenerator(name = "professor_id_generator", strategy = "increment")
+    @GenericGenerator(name = "professor_id_generator", strategy = "identity")
     @GeneratedValue(generator = "professor_id_generator")
     protected Long Id;
 
