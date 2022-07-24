@@ -1,11 +1,28 @@
 package co.com.randomapi.utils;
 
+import lombok.Builder;
+
+@Builder
 public class ExceptionBuilder {
-    public static<K extends Exception> K buildException(Class<K> exceptionClass, String message) {
+    private Class<? extends RuntimeException> exceptionClass;
+    private String developerMessage = "No message was supplied...";
+
+    public<K extends RuntimeException> ExceptionBuilder(Class<K> exceptionClass) {
+        this.exceptionClass = exceptionClass;
+    }
+
+    public ExceptionBuilder developerMessage(String message) {
+        this.developerMessage = message;
+        return this;
+    }
+
+    public RuntimeException build() {
+        return getExceptionInstance();
+    }
+
+    private RuntimeException getExceptionInstance() {
         try {
-            return exceptionClass
-                    .getDeclaredConstructor(String.class)
-                    .newInstance(message);
+            return this.exceptionClass.getDeclaredConstructor(String.class).newInstance(this.developerMessage);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
