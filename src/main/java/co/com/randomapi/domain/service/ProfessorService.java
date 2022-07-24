@@ -4,11 +4,14 @@ import co.com.randomapi.domain.dto.ProfessorDTO;
 import co.com.randomapi.persistence.entity.Professor;
 import co.com.randomapi.persistence.mapper.ProfessorMapper;
 import co.com.randomapi.persistence.repository.ProfessorRepository;
+import co.com.randomapi.utils.ExceptionBuilder;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 @AllArgsConstructor
 @Service
@@ -22,11 +25,29 @@ public class ProfessorService implements BasicService<ProfessorDTO, Long> {
         return mapper.entitiesToDTOs(professors);
     }
 
+    private void validateIdIsNotEmpty(Long id) {
+        if(id == null) {
+            throw new ExceptionBuilder(IllegalArgumentException.class)
+                    .developerMessage("You cannot pass an empty id.")
+                    .build();
+        }
+    }
+
+    private void validateIdExists(Long id) {
+        if(!this.repository.existsById(id)) {
+            throw new ExceptionBuilder(IllegalArgumentException.class)
+                    .developerMessage("The given id doesn't belong to any record.")
+                    .build();
+        }
+    }
+
     @Override
     public Optional<ProfessorDTO> findById(Long id) {
+        validateIdIsNotEmpty(id);
+        validateIdExists(id);
         Professor professor = repository
                 .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("The given id doesn't belong to any record."));
+                .orElseThrow();
         ProfessorDTO dto = mapper.entityToDTO(professor);
         return Optional.of(dto);
     }
@@ -40,18 +61,20 @@ public class ProfessorService implements BasicService<ProfessorDTO, Long> {
     }
 
     @Override
-    public ProfessorDTO update(ProfessorDTO updatedDto) {
-        Long dtoId = updatedDto.getId();
-        if (dtoId == null) {
-            throw new IllegalArgumentException("The supplied DTO doesn't have an id.");
-        }
-        return this
-                .findById(updatedDto.getId())
-                .orElseThrow();
+    public ProfessorDTO update(ProfessorDTO changes) {
+        validateIdIsNotEmpty(changes.getId());
+        validateIdExists(changes.getId());
+        Professor entityFromDTO = mapper.DTOToEntity(changes);
+        Professor updatedEntity = this.repository.save(entityFromDTO);
+        return mapper.entityToDTO(updatedEntity);
     }
 
     @Override
     public ProfessorDTO delete(Long id) {
-        return null;
+        validateIdIsNotEmpty(id);
+        validateIdExists(id);
+        ProfessorDTO dto = this.findById(id).orElseThrow();
+        this.repository.deleteById(id);
+        return dto;
     }
 }

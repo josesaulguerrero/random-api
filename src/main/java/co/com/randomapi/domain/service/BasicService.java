@@ -10,7 +10,7 @@ import java.util.Optional;
  */
 public interface BasicService<K, I> {
     List<K> findAll();
-    Optional<K> findById(I id);
+    Optional<K> findById(I id) throws Throwable;
     K create(K dto);
     K update(K updatedDto);
     K delete(I id);
