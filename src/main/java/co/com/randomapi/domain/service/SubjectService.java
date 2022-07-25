@@ -1,9 +1,9 @@
 package co.com.randomapi.domain.service;
 
-import co.com.randomapi.domain.dto.StudentDTO;
-import co.com.randomapi.persistence.entity.Student;
-import co.com.randomapi.persistence.mapper.StudentMapper;
-import co.com.randomapi.persistence.repository.StudentRepository;
+import co.com.randomapi.domain.dto.SubjectDTO;
+import co.com.randomapi.persistence.entity.Subject;
+import co.com.randomapi.persistence.mapper.SubjectMapper;
+import co.com.randomapi.persistence.repository.SubjectRepository;
 import co.com.randomapi.utils.ExceptionBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,15 +11,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
 @Service
-public class StudentService implements BasicService<StudentDTO, Long> {
-    private final StudentRepository repository;
-    private final StudentMapper mapper;
+@AllArgsConstructor
+public class SubjectService implements BasicService<SubjectDTO, Long> {
+    private final SubjectRepository repository;
+    private final SubjectMapper mapper;
 
     @Override
-    public List<StudentDTO> findAll() {
-        List<Student> entities = this.repository.findAll();
+    public List<SubjectDTO> findAll() {
+        List<Subject> entities = this.repository.findAll();
         return mapper.entitiesToDTOs(entities);
     }
 
@@ -40,39 +40,40 @@ public class StudentService implements BasicService<StudentDTO, Long> {
     }
 
     @Override
-    public Optional<StudentDTO> findById(Long id) {
+    public Optional<SubjectDTO> findById(Long id) {
         validateIdIsNotEmpty(id);
         validateIdExists(id);
-        Student entity = repository
+        Subject entity = repository
                 .findById(id)
                 .orElseThrow();
-        StudentDTO dto = mapper.entityToDTO(entity);
+        SubjectDTO dto = mapper.entityToDTO(entity);
         return Optional.of(dto);
     }
 
     @Override
-    public StudentDTO create(StudentDTO dto) {
-        Student entity = repository.save(
+    public SubjectDTO create(SubjectDTO dto) {
+        Subject entity = repository.save(
                 mapper.DTOToEntity(dto)
         );
         return mapper.entityToDTO(entity);
     }
 
     @Override
-    public StudentDTO update(StudentDTO changes) {
+    public SubjectDTO update(SubjectDTO changes) {
         validateIdIsNotEmpty(changes.getId());
         validateIdExists(changes.getId());
-        Student entityFromDTO = mapper.DTOToEntity(changes);
-        Student updatedEntity = this.repository.save(entityFromDTO);
+        Subject entityFromDTO = mapper.DTOToEntity(changes);
+        Subject updatedEntity = this.repository.save(entityFromDTO);
         return mapper.entityToDTO(updatedEntity);
     }
 
     @Override
-    public StudentDTO delete(Long id) {
+    public SubjectDTO delete(Long id) {
         validateIdIsNotEmpty(id);
         validateIdExists(id);
-        StudentDTO dto = this.findById(id).orElseThrow();
+        SubjectDTO dto = this.findById(id).orElseThrow();
         this.repository.deleteById(id);
         return dto;
     }
 }
+
