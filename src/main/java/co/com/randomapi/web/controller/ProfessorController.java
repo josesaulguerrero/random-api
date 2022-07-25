@@ -32,7 +32,7 @@ public class ProfessorController implements BasicController<ProfessorDTO, Long> 
     }
 
     @Override
-    @PatchMapping
+    @PutMapping
     public ProfessorDTO update(@RequestBody ProfessorDTO changes) {
         return this.service.update(changes);
     }
