@@ -38,7 +38,7 @@ public class StudentController implements BasicController<StudentDTO, Long> {
     }
 
     @Override
-    @GetMapping("{id}")
+    @DeleteMapping("{id}")
     public StudentDTO delete(@PathVariable("id") Long id) {
         return this.service.delete(id);
     }
