@@ -17,7 +17,7 @@ public class Professor extends Person {
     @Column(name = "id", unique = true)
     @GenericGenerator(name = "professor_id_generator", strategy = "identity")
     @GeneratedValue(generator = "professor_id_generator")
-    protected Long Id;
+    protected Long id;
 
     private Double salary;
 
@@ -33,7 +33,7 @@ public class Professor extends Person {
 
     public Professor(String DNI, String name, Integer age, Long id, Double salary, List<Subject> subjectsInCharge) {
         super(DNI, name, age);
-        this.Id = id;
+        this.id = id;
         this.salary = salary;
         this.subjectsInCharge = subjectsInCharge;
     }

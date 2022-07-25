@@ -7,8 +7,8 @@ import javax.persistence.MappedSuperclass;
 
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter(value = AccessLevel.PROTECTED)
-@Setter(value = AccessLevel.PROTECTED)
+@Getter(value = AccessLevel.PUBLIC)
+@Setter(value = AccessLevel.PUBLIC)
 @ToString
 @MappedSuperclass
 public abstract class Person {

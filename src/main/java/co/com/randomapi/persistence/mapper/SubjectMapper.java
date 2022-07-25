@@ -9,9 +9,8 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = { StudentMapper.class, ProfessorMapper.class })
-public abstract class SubjectMapper implements BasicMapper<Subject, SubjectDTO> {
+public interface SubjectMapper extends BasicMapper<Subject, SubjectDTO> {
     @Override
-    @Mapping(source = "id", target = "Id")
     public abstract Subject DTOToEntity(SubjectDTO dto);
 
     @Override

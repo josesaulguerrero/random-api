@@ -16,7 +16,7 @@ import java.util.Set;
 public class Subject {
     @Id
     @Column(name = "id", unique = true)
-    private Long Id;
+    private Long id;
 
     private String name;
 

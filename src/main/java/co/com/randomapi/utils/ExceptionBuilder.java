@@ -1,8 +1,5 @@
 package co.com.randomapi.utils;
 
-import lombok.Builder;
-
-@Builder
 public class ExceptionBuilder {
     private Class<? extends RuntimeException> exceptionClass;
     private String developerMessage = "No message was supplied...";

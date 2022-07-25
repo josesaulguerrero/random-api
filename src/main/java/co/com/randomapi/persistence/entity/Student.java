@@ -20,8 +20,19 @@ public class Student extends Person {
     @Column(name = "id", unique = true)
     @GenericGenerator(name = "student_id_generator", strategy = "identity")
     @GeneratedValue(generator = "student_id_generator")
-    protected Long Id;
+    protected Long id;
 
     @ManyToMany(mappedBy = "subscribedStudents", fetch = FetchType.EAGER)
     private List<Subject> subscribedTo;
+
+    public Student(String DNI, String name, Integer age, List<Subject> subscribedTo) {
+        super(DNI, name, age);
+        this.subscribedTo = subscribedTo;
+    }
+
+    public Student(String DNI, String name, Integer age, Long id, List<Subject> subscribedTo) {
+        super(DNI, name, age);
+        this.id = id;
+        this.subscribedTo = subscribedTo;
+    }
 }
