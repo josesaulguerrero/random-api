@@ -1,5 +1,7 @@
 package co.com.randomapi.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -12,6 +14,10 @@ import java.util.List;
 @ToString(callSuper = true)
 @Entity(name = "Person")
 @Table(name = "people")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 public class Professor extends Person {
     @Id
     @Column(name = "id", unique = true)
