@@ -13,6 +13,7 @@ import java.util.List;
 public interface StudentMapper extends BasicMapper<Student, StudentDTO> {
     @Override
     @Mapping(source = "dni", target = "DNI")
+    @Mapping(target = "subscribedTo", ignore = true)
     Student DTOToEntity(StudentDTO dto);
 
     @Override

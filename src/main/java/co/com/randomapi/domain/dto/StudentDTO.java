@@ -14,12 +14,10 @@ public class StudentDTO {
     private String name;
     private int age;
     private String dni;
-    private Set<SubjectDTO> subscribedTo;
 
-    public StudentDTO(String name, int age, String dni, Set<SubjectDTO> subscribedTo) {
+    public StudentDTO(String name, int age, String dni) {
         this.name = name;
         this.age = age;
         this.dni = dni;
-        this.subscribedTo = subscribedTo;
     }
 }
