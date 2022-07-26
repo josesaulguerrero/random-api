@@ -1,5 +1,7 @@
 package co.com.randomapi.domain.service;
 
+import co.com.randomapi.domain.dto.ProfessorDTO;
+import co.com.randomapi.domain.dto.StudentDTO;
 import co.com.randomapi.domain.dto.SubjectDTO;
 import co.com.randomapi.persistence.entity.Subject;
 import co.com.randomapi.persistence.mapper.SubjectMapper;
@@ -65,6 +67,18 @@ public class SubjectService implements BasicService<SubjectDTO, Long> {
         Subject entityFromDTO = mapper.DTOToEntity(changes);
         Subject updatedEntity = this.repository.save(entityFromDTO);
         return mapper.entityToDTO(updatedEntity);
+    }
+
+    public SubjectDTO assignProfessor(Long subjectId, ProfessorDTO dto) {
+        SubjectDTO subject = this.findById(subjectId).orElseThrow();
+        subject.setAssignedProfessor(dto);
+        return this.update(subject);
+    }
+
+    public SubjectDTO suscribeStudent(Long subjectId, StudentDTO dto) {
+        SubjectDTO subject = this.findById(subjectId).orElseThrow();
+        subject.suscribeStudent(dto);
+        return this.update(subject);
     }
 
     @Override

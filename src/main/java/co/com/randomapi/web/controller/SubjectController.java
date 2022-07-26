@@ -1,5 +1,7 @@
 package co.com.randomapi.web.controller;
 
+import co.com.randomapi.domain.dto.ProfessorDTO;
+import co.com.randomapi.domain.dto.StudentDTO;
 import co.com.randomapi.domain.dto.SubjectDTO;
 import co.com.randomapi.domain.service.SubjectService;
 import lombok.AllArgsConstructor;
@@ -35,6 +37,16 @@ public class SubjectController implements BasicController<SubjectDTO, Long> {
     @PutMapping
     public SubjectDTO update(@RequestBody SubjectDTO changes) {
         return this.service.update(changes);
+    }
+
+    @PatchMapping("{id}/teacher")
+    public SubjectDTO assignProfessor(@PathVariable("id") Long subjectId, @RequestBody ProfessorDTO dto) {
+        return this.service.assignProfessor(subjectId, dto);
+    }
+
+    @PatchMapping("{id}/students")
+    public SubjectDTO subscribeStudent(@PathVariable("id") Long subjectId, @RequestBody StudentDTO dto) {
+        return this.service.suscribeStudent(subjectId, dto);
     }
 
     @Override

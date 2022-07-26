@@ -21,4 +21,8 @@ public class SubjectDTO {
         this.assignedProfessor = professorInCharge;
         this.subscribedStudents = subscribedStudents;
     }
+
+    public void suscribeStudent(StudentDTO dto) {
+        this.subscribedStudents.add(dto);
+    }
 }
