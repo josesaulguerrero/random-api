@@ -1,19 +1,18 @@
 package co.com.randomapi.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(callSuper = true)
-@Entity(name = "Person")
-@Table(name = "people")
+@Entity
+@Table(name = "professors")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id"
@@ -21,23 +20,21 @@ import java.util.List;
 public class Professor extends Person {
     @Id
     @Column(name = "id", unique = true)
-    @GenericGenerator(name = "professor_id_generator", strategy = "identity")
-    @GeneratedValue(generator = "professor_id_generator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
     private Double salary;
 
-    @Column(name = "subjects_in_charge_of")
-    @OneToMany(mappedBy = "professorInCharge", fetch = FetchType.EAGER)
-    private List<Subject> subjectsInCharge;
+    @OneToMany(mappedBy = "assignedProfessor", fetch = FetchType.EAGER)
+    private Set<Subject> subjectsInCharge;
 
-    public Professor(String DNI, String name, Integer age, Double salary, List<Subject> subjectsInCharge) {
+    public Professor(String DNI, String name, Integer age, Double salary, Set<Subject> subjectsInCharge) {
         super(DNI, name, age);
         this.salary = salary;
         this.subjectsInCharge = subjectsInCharge;
     }
 
-    public Professor(String DNI, String name, Integer age, Long id, Double salary, List<Subject> subjectsInCharge) {
+    public Professor(String DNI, String name, Integer age, Long id, Double salary, Set<Subject> subjectsInCharge) {
         super(DNI, name, age);
         this.id = id;
         this.salary = salary;

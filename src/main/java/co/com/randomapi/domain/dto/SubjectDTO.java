@@ -12,13 +12,13 @@ public class SubjectDTO {
     private long id;
     private String name;
     private SubjectDifficulty difficulty;
-    private ProfessorDTO professorInCharge;
+    private ProfessorDTO assignedProfessor;
     private Set<StudentDTO> subscribedStudents;
 
     public SubjectDTO(String name, SubjectDifficulty difficulty, ProfessorDTO professorInCharge, Set<StudentDTO> subscribedStudents) {
         this.name = name;
         this.difficulty = difficulty;
-        this.professorInCharge = professorInCharge;
+        this.assignedProfessor = professorInCharge;
         this.subscribedStudents = subscribedStudents;
     }
 }

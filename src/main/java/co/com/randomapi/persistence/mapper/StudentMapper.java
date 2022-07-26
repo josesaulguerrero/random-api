@@ -12,15 +12,13 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface StudentMapper extends BasicMapper<Student, StudentDTO> {
     @Override
-    @Mappings(value = {
-            @Mapping(source = "dni", target = "DNI")
-    })
-    public abstract Student DTOToEntity(StudentDTO dto);
+    @Mapping(source = "dni", target = "DNI")
+    Student DTOToEntity(StudentDTO dto);
 
     @Override
     @InheritInverseConfiguration
-    public abstract StudentDTO entityToDTO(Student entity);
+    StudentDTO entityToDTO(Student entity);
 
     @Override
-    public abstract List<StudentDTO> entitiesToDTOs(List<Student> entities);
+    List<StudentDTO> entitiesToDTOs(List<Student> entities);
 }

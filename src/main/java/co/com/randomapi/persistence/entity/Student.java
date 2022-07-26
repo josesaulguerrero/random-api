@@ -6,16 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString(callSuper = true)
-@Entity(name = "Student")
+@Entity
 @Table(name = "students")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -24,20 +23,24 @@ import java.util.List;
 public class Student extends Person {
     @Id
     @Column(name = "id", unique = true)
-    @GenericGenerator(name = "student_id_generator", strategy = "identity")
-    @GeneratedValue(generator = "student_id_generator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
-    @ManyToMany(mappedBy = "subscribedStudents", fetch = FetchType.EAGER)
-    private List<Subject> subscribedTo;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "subject_student",
+            joinColumns = @JoinColumn(name = "fk_student"),
+            inverseJoinColumns = @JoinColumn(name = "fk_subject")
+    )
+    private Set<Subject> subscribedTo;
 
-    public Student(String DNI, String name, Integer age, List<Subject> subscribedTo) {
-        super(DNI, name, age);
+    public Student(String dni, String name, Integer age, Set<Subject> subscribedTo) {
+        super(dni, name, age);
         this.subscribedTo = subscribedTo;
     }
 
-    public Student(String DNI, String name, Integer age, Long id, List<Subject> subscribedTo) {
-        super(DNI, name, age);
+    public Student(String dni, String name, Integer age, Long id, Set<Subject> subscribedTo) {
+        super(dni, name, age);
         this.id = id;
         this.subscribedTo = subscribedTo;
     }

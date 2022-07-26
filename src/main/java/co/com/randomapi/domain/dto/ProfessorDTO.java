@@ -13,13 +13,11 @@ public class ProfessorDTO {
     private int age;
     private String dni;
     private double salary;
-    private List<SubjectDTO> subjectsInCharge;
 
-    public ProfessorDTO(String name, int age, String dni, double salary, List<SubjectDTO> subjectsInCharge) {
+    public ProfessorDTO(String name, int age, String dni, double salary) {
         this.name = name;
         this.age = age;
         this.dni = dni;
         this.salary = salary;
-        this.subjectsInCharge = subjectsInCharge;
     }
 }

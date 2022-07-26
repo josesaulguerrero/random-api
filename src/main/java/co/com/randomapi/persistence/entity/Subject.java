@@ -5,15 +5,13 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
-@Entity(name = "Subject")
+@Entity
 @Table(name = "subjects")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -21,7 +19,7 @@ import java.util.Set;
 )
 public class Subject {
     @Id
-    @Column(name = "id", unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
@@ -30,14 +28,9 @@ public class Subject {
     private SubjectDifficulty difficulty;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "fk_professor")
-    private Professor professorInCharge;
+    @JoinColumn(name = "fk_professor", nullable = false)
+    private Professor assignedProfessor;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "subject_student",
-            joinColumns = { @JoinColumn(name = "fk_subject") },
-            inverseJoinColumns = { @JoinColumn(name = "fk_student") }
-    )
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "subscribedTo")
     private Set<Student> subscribedStudents;
 }
